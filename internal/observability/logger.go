@@ -16,19 +16,19 @@ import (
 //  2. Mirrors every log entry to the OTel log pipeline → Loki
 //  3. Attaches trace_id and span_id to every log entry automatically
 func NewLogger(serviceName string) (*zap.Logger, error) {
-	// Stdout core — structured JSON
+	// Stdout core - structured JSON
 	stdoutCore, err := stdoutZapCore()
 	if err != nil {
 		return nil, err
 	}
 
-	// OTel bridge core — sends to Loki via OTel Collector
+	// OTel bridge core - sends to Loki via OTel Collector
 	otelCore := otelzap.NewCore(
 		serviceName,
 		otelzap.WithLoggerProvider(global.GetLoggerProvider()),
 	)
 
-	// Combine both cores — logs go to stdout AND Loki
+	// Combine both cores - logs go to stdout AND Loki
 	combined := zapcore.NewTee(stdoutCore, otelCore)
 
 	return zap.New(combined,
@@ -51,7 +51,7 @@ func stdoutZapCore() (zapcore.Core, error) {
 }
 
 // WithContext extracts the active trace span from ctx and returns a logger
-// with trace_id and span_id fields attached — these are the keys Loki's
+// with trace_id and span_id fields attached - these are the keys Loki's
 // derivedFields rule matches to link logs → Tempo traces.
 func WithContext(ctx context.Context, log *zap.Logger) *zap.Logger {
 	span := trace.SpanFromContext(ctx)
