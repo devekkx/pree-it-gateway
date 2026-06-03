@@ -1,5 +1,3 @@
-# preeit-gateway - multi-stage build
-
 # Stage 1: deps
 FROM golang:1.26-alpine AS deps
 
