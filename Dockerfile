@@ -31,14 +31,14 @@ COPY . .
 EXPOSE 8080 9090
 CMD ["air", "-c", ".air.toml"]
 
-# Stage 4: production (distroless - no shell, no package manager)
-FROM gcr.io/distroless/static-debian12 AS production
+# Stage 4: production
+FROM gcr.io/distroless/static-debian12:nonroot AS production
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /usr/share/zoneinfo                 /usr/share/zoneinfo
 COPY --from=builder /bin/gateway                        /gateway
 
-USER nonroot:nonroot
+USER root
 
 EXPOSE 8080 9090
 
