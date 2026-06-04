@@ -3,6 +3,7 @@ module github.com/devekkx/pree-it-gateway
 go 1.26.2
 
 require (
+	github.com/exaring/otelpgx v0.11.1
 	github.com/gin-gonic/gin v1.12.0
 	github.com/jackc/pgx/v5 v5.9.2
 	go.opentelemetry.io/contrib/bridges/otelzap v0.19.0
@@ -28,7 +29,6 @@ require (
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cloudwego/base64x v0.1.7 // indirect
-	github.com/exaring/otelpgx v0.11.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.13 // indirect
 	github.com/gin-contrib/sse v1.1.1 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
