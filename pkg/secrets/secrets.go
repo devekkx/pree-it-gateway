@@ -6,10 +6,6 @@ import (
 	"strings"
 )
 
-// MustRead resolves a secret using this priority:
-//  1. Environment variable <NAME> (set by entrypoint from secret file)
-//  2. File at path given by <NAME>_FILE env var
-//  3. File at /run/secrets/<name>
 func MustRead(name string) string {
 	val, err := Read(name)
 	if err != nil {
@@ -21,8 +17,8 @@ func MustRead(name string) string {
 func Read(name string) (string, error) {
 	upper := strings.ToUpper(name)
 
-	// 1. Plain env var — set by entrypoint reading the secret file
-	if val := os.Getenv(upper); val != "" {
+	// 1. Plain env var set by entrypoint
+	if val := strings.TrimSpace(os.Getenv(upper)); val != "" {
 		return val, nil
 	}
 
